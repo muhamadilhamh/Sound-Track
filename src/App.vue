@@ -1,11 +1,16 @@
 <template>
-  <v-app>
+  <v-app app color="primary">
     <v-content>
       <v-container>
         <Navbar />
+        <v-switch 
+          :value="darkMode" 
+          @change="toggleDarkMode" 
+          :label="`toggle ${switchLabel} mode`"
+        ></v-switch>
         <!-- Track artis info -->
         <v-card height="60">
-          <v-card-title>
+          <v-card-title class="primary">
             <h2>{{ getTrackInfo.artist }} - {{ getTrackInfo.title }}</h2>
             <v-spacer></v-spacer>
             <h3>
@@ -116,6 +121,7 @@ export default {
   components: { Navbar },
   data() {
     return {
+       darkMode: false,
       seek: 0,
       shuffle: false,
       loop: false,
@@ -163,6 +169,10 @@ export default {
     Howler.volume(this.volume);
   },
   methods: {
+    toggleDarkMode: function () {
+        this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+        this.darkMode = !this.darkMode;
+      },
     selectTrack(track) {
       this.selectedTrack = track;
     },
@@ -274,6 +284,9 @@ export default {
         duration,
       };
     },
+      switchLabel: function () {
+        return this.darkMode ? 'light' : 'dark';
+      }
   },
   watch: {
     playing(playing) {
