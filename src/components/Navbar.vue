@@ -22,10 +22,6 @@
     </v-menu>
     <v-spacer></v-spacer>
     Sound Track
-    <v-spacer></v-spacer>
-    <v-icon>mdi-window-minimize</v-icon>
-    <v-icon>mdi-window-maximize</v-icon>
-    <v-icon>mdi-window-close</v-icon>
   </v-system-bar>
 </template>
  

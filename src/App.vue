@@ -3,9 +3,9 @@
     <v-content>
       <v-container>
         <Navbar />
-        <v-switch 
-          :value="darkMode" 
-          @change="toggleDarkMode" 
+        <v-switch
+          :value="darkMode"
+          @change="toggleDarkMode"
           :label="`toggle ${switchLabel} mode`"
         ></v-switch>
         <!-- Track artis info -->
@@ -20,6 +20,8 @@
             </h3>
           </v-card-title>
         </v-card>
+        <br />
+        <br />
 
         <!-- list playlist -->
         <v-card height="330" :class="{ playlist }">
@@ -49,66 +51,91 @@
         <!-- progress -->
         <v-toolbar flat height="40">
           <v-progress-linear
+            class=""
             height="40"
             v-model="trackProgress"
           ></v-progress-linear>
         </v-toolbar>
 
+        <!-- <v-row> -->
         <div>
-          <v-toolbar flat height="90">
-            <v-btn flat icon @click="toggleMute">
-              <template v-if="!this.muted">
-                <v-icon v-if="this.volume >= 0.5">mdi-volume-high</v-icon>
-                <v-icon v-else-if="this.volume > 0">mdi-volume-medium</v-icon>
-                <v-icon v-else>mdi-volume-low</v-icon>
-              </template>
-              <v-icon v-show="this.muted">mdi-volume-mute</v-icon>
-            </v-btn>
-            <v-slider
-              v-model="volume"
-              @input="updateVolume(volume)"
-              max="1"
-              step="0.1"
-            ></v-slider>
-            {{ this.volume * 100 + " %" }}
-            <v-spacer></v-spacer>
-            <v-btn outline fab small color="light-blue" @click="skip('prev')">
-              <v-icon>mdi-skip-previous</v-icon>
-            </v-btn>
-            <v-btn outline fab small color="light-blue" @click="stop()">
-              <v-icon>mdi-stop</v-icon>
-            </v-btn>
-            <v-btn
-              outline
-              fab
-              small
-              color="light-blue"
-              @click="play()"
-              v-if="!playing"
-            >
-              <v-icon large>mdi-play</v-icon>
-            </v-btn>
-            <v-btn outline fab small color="red" @click="pause()" v-else>
-              <v-icon>mdi-pause</v-icon>
-            </v-btn>
-            <v-btn outline fab small color="light-blue" @click="skip('next')">
-              <v-icon>mdi-skip-next</v-icon>
-            </v-btn>
-            <v-spacer></v-spacer>
-            <v-btn flat icon @click="toggleShuffle" v-if="!shuffle">
-              <v-icon color="blue-grey">mdi-shuffle</v-icon>
-            </v-btn>
-            <v-btn flat icon @click="toggleShufflee" v-else>
-              <v-icon color="light-blue">mdi-shuffle</v-icon>
-            </v-btn>
-            <v-btn flat icon @click="toggleLoop" v-if="!loop">
-              <v-icon color="blue-grey">mdi-clock</v-icon>
-            </v-btn>
-            <v-btn flat icon @click="toggleLoopp" v-else>
-              <v-icon color="light-blue">mdi-clock</v-icon>
-            </v-btn>
+          <v-toolbar flat height="100" class="">
+            <div class="row flex-wrap justify-space-between">
+              <span class="volume">
+                <v-btn flat icon @click="toggleMute">
+                  <template v-if="!this.muted">
+                    <v-icon v-if="this.volume >= 0.5">mdi-volume-high</v-icon>
+                    <v-icon v-else-if="this.volume > 0"
+                      >mdi-volume-medium</v-icon
+                    >
+                    <v-icon v-else>mdi-volume-low</v-icon>
+                  </template>
+                  <v-icon v-show="this.muted">mdi-volume-mute</v-icon>
+                </v-btn>
+                <v-slider
+                  v-model="volume"
+                  @input="updateVolume(volume)"
+                  max="1"
+                  step="0.1"
+                ></v-slider>
+                {{ this.volume * 100 + " %" }}
+              </span>
+              <v-spacer></v-spacer>
+              <span class="controls">
+                <v-btn
+                  outline
+                  fab
+                  small
+                  color="light-blue"
+                  @click="skip('prev')"
+                >
+                  <v-icon>mdi-skip-previous</v-icon>
+                </v-btn>
+                <v-btn outline fab small color="light-blue" @click="stop()">
+                  <v-icon>mdi-stop</v-icon>
+                </v-btn>
+                <v-btn
+                  outline
+                  fab
+                  small
+                  color="light-blue"
+                  @click="play()"
+                  v-if="!playing"
+                >
+                  <v-icon large>mdi-play</v-icon>
+                </v-btn>
+                <v-btn outline fab small color="red" @click="pause()" v-else>
+                  <v-icon>mdi-pause</v-icon>
+                </v-btn>
+                <v-btn
+                  outline
+                  fab
+                  small
+                  color="light-blue"
+                  @click="skip('next')"
+                >
+                  <v-icon>mdi-skip-next</v-icon>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn flat icon @click="toggleShuffle" v-if="!shuffle">
+                  <v-icon color="blue-grey">mdi-shuffle</v-icon>
+                </v-btn>
+                <v-btn flat icon @click="toggleShufflee" v-else>
+                  <v-icon color="light-blue">mdi-shuffle</v-icon>
+                </v-btn>
+                <v-btn flat icon @click="toggleLoop" v-if="!loop">
+                  <v-icon color="blue-grey">mdi-clock</v-icon>
+                </v-btn>
+                <v-btn flat icon @click="toggleLoopp" v-else>
+                  <v-icon color="light-blue">mdi-clock</v-icon>
+                </v-btn>
+                <br />
+                <br />
+              </span>
+            </div>
           </v-toolbar>
         </div>
+        <!-- </v-row> -->
       </v-container>
     </v-content>
   </v-app>
@@ -121,7 +148,7 @@ export default {
   components: { Navbar },
   data() {
     return {
-       darkMode: false,
+      darkMode: false,
       seek: 0,
       shuffle: false,
       loop: false,
@@ -149,6 +176,102 @@ export default {
           howl: null,
           display: true,
         },
+        {
+          title: "Im sorry dont leave me",
+          artist: "Dylan Matthew",
+          howl: null,
+          display: true,
+        },
+        {
+          title: "Happier",
+          artist: "Olivia Rodrigo",
+          howl: null,
+          display: true,
+        },
+        {
+          title: "At My Worst",
+          artist: "Pink Sweat",
+          howl: null,
+          display: true,
+        },
+        {
+          title: "Heartbreak Anniversary",
+          artist: "Giveo",
+          howl: null,
+          display: true,
+        },
+        {
+          title: "Demons",
+          artist: "Imagine Dragons",
+          howl: null,
+          display: true,
+        },
+        {
+          title: "Take Me To Church",
+          artist: "Hozier",
+          howl: null,
+          display: true,
+        },
+        {
+          title: "Before You Go",
+          artist: "Lewis Capaldi",
+          howl: null,
+          display: true,
+        },
+        {
+          title: "Snowman",
+          artist: "Sia",
+          howl: null,
+          display: true,
+        },
+         {
+          title: "Unstoppable",
+          artist: "Sia",
+          howl: null,
+          display: true,
+        },
+         {
+          title: "Drivers license x Take me to church",
+          artist: "Duo",
+          howl: null,
+          display: true,
+        },
+         {
+          title: "Monsters",
+          artist: "Katie Sky",
+          howl: null,
+          display: true,
+        },
+          {
+          title: "Night Changes",
+          artist: "One Direction",
+          howl: null,
+          display: true,
+        },
+          {
+          title: "STAY",
+          artist: "The Kid LAROI, Justin Bieber",
+          howl: null,
+          display: true,
+        },
+         {
+          title: "Here's Your Perfect",
+          artist: "Jamie Mille",
+          howl: null,
+          display: true,
+        },
+         {
+          title: "To The Bone",
+          artist: "Pamungkas",
+          howl: null,
+          display: true,
+        },
+         {
+          title: "Beggin you",
+          artist: "Måneskin",
+          howl: null,
+          display: true,
+        },
       ],
     };
   },
@@ -170,9 +293,9 @@ export default {
   },
   methods: {
     toggleDarkMode: function () {
-        this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-        this.darkMode = !this.darkMode;
-      },
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      this.darkMode = !this.darkMode;
+    },
     selectTrack(track) {
       this.selectedTrack = track;
     },
@@ -284,9 +407,9 @@ export default {
         duration,
       };
     },
-      switchLabel: function () {
-        return this.darkMode ? 'light' : 'dark';
-      }
+    switchLabel: function () {
+      return this.darkMode ? "light" : "dark";
+    },
   },
   watch: {
     playing(playing) {
@@ -304,6 +427,9 @@ export default {
 };
 </script>
 <style scoped>
+* {
+  font-family: "Nunito", sans-serif !important;
+}
 .selected {
   background-color: orange;
 }
@@ -315,5 +441,19 @@ export default {
 }
 .list {
   cursor: pointer;
+}
+.volume {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75vw;
+  margin: 0 auto;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  margin: 0 auto;
 }
 </style>

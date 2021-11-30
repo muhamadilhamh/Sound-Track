@@ -15,7 +15,7 @@ export default new Vuetify({
             secondary: colors.deepOrange.lighten1
           },
           dark: {
-            primary: '#505050',
+            primary: '#505052',
           },
         },
       },
