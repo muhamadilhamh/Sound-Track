@@ -278,6 +278,12 @@ export default {
           howl: null,
           display: true,
         },
+        {
+          title: "Double take",
+          artist: "dhruv",
+          howl: null,
+          display: true,
+        },
       ],
     };
   },
