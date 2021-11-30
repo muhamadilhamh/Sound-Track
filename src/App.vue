@@ -272,6 +272,12 @@ export default {
           howl: null,
           display: true,
         },
+         {
+          title: "Imagination",
+          artist: "Shawn Mendes",
+          howl: null,
+          display: true,
+        },
       ],
     };
   },
